@@ -23,9 +23,11 @@
         justify-content: center;
         align-items: center;
         min-height: 100vh;
+        height: 100%;
         background-color: #fae1dd;
         font-family: "Segoe UI", sans-serif;
         padding: 20px;
+        overflow-x: hidden;
       }
 
       .container {
@@ -33,6 +35,12 @@
         position: relative;
         max-width: 100%;
         width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        /* Tambahkan margin atas dan bawah untuk perangkat kecil */
+        margin: 20px 0;
       }
 
       .valentines {
@@ -43,6 +51,9 @@
         margin: 0 auto;
         width: var(--envelope-width);
         height: calc(var(--envelope-height) + 100px);
+        /* Pastikan ada ruang yang cukup di atas dan bawah */
+        margin-top: 20px;
+        margin-bottom: 20px;
       }
 
       @keyframes up {
@@ -255,6 +266,8 @@
         text-decoration: none;
         display: inline-block;
         transition: background-color 0.3s ease;
+        /* Pastikan tombol tidak terlalu dekat dengan elemen di atasnya */
+        margin-bottom: 20px;
       }
 
       .btn:hover {
@@ -263,6 +276,10 @@
 
       /* Media queries untuk responsivitas */
       @media (max-width: 768px) {
+        body {
+          padding: 15px;
+        }
+        
         .valentines {
           width: 280px;
           height: calc(187px + 80px);
@@ -323,11 +340,23 @@
       @media (max-width: 480px) {
         body {
           padding: 15px;
+          /* Pastikan body mengambil tinggi penuh viewport */
+          min-height: 100vh;
+          height: auto;
+        }
+        
+        .container {
+          /* Gunakan flex untuk penempatan yang lebih baik */
+          justify-content: space-around;
+          min-height: 80vh;
         }
         
         .valentines {
           width: 250px;
           height: calc(167px + 70px);
+          /* Atur margin untuk posisi yang lebih baik */
+          margin-top: 10px;
+          margin-bottom: 10px;
         }
         
         .envelope {
@@ -410,7 +439,7 @@
         .five { left: 72px; }
         
         .btn {
-          margin-top: 20px;
+          margin-top: 15px;
           font-size: 14px;
           padding: 10px 16px;
         }
@@ -488,6 +517,23 @@
       }
 
       /* Untuk orientasi landscape pada perangkat mobile */
+      @media (max-height: 600px) {
+        .container {
+          /* Kurangi margin untuk layar pendek */
+          margin: 10px 0;
+        }
+        
+        .valentines {
+          margin-top: 5px;
+          margin-bottom: 5px;
+        }
+        
+        .btn {
+          margin-top: 10px;
+          margin-bottom: 10px;
+        }
+      }
+
       @media (max-height: 500px) and (orientation: landscape) {
         body {
           padding: 10px;
@@ -502,6 +548,7 @@
           justify-content: center;
           gap: 30px;
           flex-wrap: wrap;
+          min-height: auto;
         }
         
         .valentines {
@@ -511,6 +558,18 @@
         
         .btn {
           margin-top: 0;
+          margin-bottom: 0;
+        }
+      }
+
+      /* Tambahan untuk perangkat dengan tinggi sangat pendek */
+      @media (max-height: 400px) {
+        .valentines {
+          transform: scale(0.8);
+        }
+        
+        .btn {
+          transform: scale(0.9);
         }
       }
     </style>
@@ -532,7 +591,7 @@
           <div class="sender">~ Rafly Romeo</div>
         </div>
       </div>
-      <a href="flower.html" class="btn">click here bebe</a>
+      <a href="flower.html" class="btn">Click here babe</a>
     </div>
 
     <script>
@@ -553,6 +612,28 @@
           message.classList.remove("visible");
         }
       });
+
+      // Fungsi untuk menyesuaikan posisi secara dinamis berdasarkan tinggi layar
+      function adjustLayout() {
+        const viewportHeight = window.innerHeight;
+        const container = document.querySelector('.container');
+        
+        if (viewportHeight < 600) {
+          container.style.margin = '10px 0';
+          document.querySelector('.valentines').style.marginTop = '5px';
+          document.querySelector('.valentines').style.marginBottom = '5px';
+          document.querySelector('.btn').style.marginTop = '10px';
+        } else {
+          container.style.margin = '20px 0';
+          document.querySelector('.valentines').style.marginTop = '20px';
+          document.querySelector('.valentines').style.marginBottom = '20px';
+          document.querySelector('.btn').style.marginTop = '30px';
+        }
+      }
+
+      // Panggil fungsi saat halaman dimuat dan di-resize
+      window.addEventListener('load', adjustLayout);
+      window.addEventListener('resize', adjustLayout);
     </script>
   </body>
 </html>
